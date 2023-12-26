@@ -7,9 +7,7 @@ function App() {
   const [reminderMsg, setReminderMsg] = useState("");
   const [remindAt, setRemindAt] = useState("");
 
-  const addReminder = () => {
-    
-  }
+  const addReminder = () => {};
 
   return (
     <div className="App">
@@ -22,7 +20,7 @@ function App() {
             value={reminderMsg}
             onChange={(e) => setReminderMsg}
           />
-          <DateTimePicker
+          <DateTimePicker 
             value={remindAt}
             onChange={setRemindAt}
             minDate={new Date()}
@@ -32,9 +30,9 @@ function App() {
             monthPlaceholder="MM"
             yearPlaceholder="YYYY"
           />
-        </div>
-        <div className="button" onClick={addReminder}>
-          Add Reminder
+          <div className="button" onClick={addReminder}>
+            Add Reminder
+          </div>
         </div>
       </div>
     </div>

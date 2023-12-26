@@ -1,4 +1,4 @@
-.App {
+.App{
   display: flex;
   width: 100vw;
   height: 100vh;
@@ -7,7 +7,7 @@
   font-family: Arial, sans-serif;
 }
 
-.homepage {
+.homepage{
   min-width: 100%;
   min-height: 100%;
   background: inherit;
@@ -18,7 +18,7 @@
 
 }
 
-.homepage_header {
+.homepage_Header{
   margin: 2rem;
   padding: 2rem;
   display: flex;
@@ -33,7 +33,7 @@
   position: relative
 }
 
-.homepage_header > .button {
+.homepage_Header > .button {
   background: #1877f2;
   border: 1px solid #1877f2;
   color: #fff;
@@ -47,7 +47,7 @@
   cursor: pointer;
 }
 
-.homepage_header > input{
+.homepage_Header > input{
   border: 1px solid grey;
   outline: none;
   color: #1d2129;
@@ -57,10 +57,13 @@
   font-size: 1rem;
 }
 
-.react-datetime-picker  {
+.react-datetime-picker{
   width: 100% !important;
 }
 
+/* .react-datetime-picker__wrapper{
+  width:100% !important; ;
+} */
 
 .homepage_body {
   width: 100%;

@@ -3,6 +3,13 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 
 function App() {
+  const getDefaultDateTime = () => {
+    const defaultTime = "12:00";
+    const today = new Date().toISOString().split("T")[0];
+    // Combine default time with current date to match the 'datetime-local' format
+    return `${today}T ${defaultTime}`;
+  };
+
   const [reminderMsg, setReminderMsg] = useState("");
   const [remindAt, setRemindAt] = useState(getDefaultDateTime());
   const [reminderList, setReminderList] = useState([]);
@@ -22,15 +29,6 @@ function App() {
   const addReminder = () => {};
 
   const deleteReminder = () => {};
-
-  function getDefaultDateTime() {
-    // Set a default time (e.g., 12:00 PM)
-    const defaultTime = "12:00";
-    // Get current date in YYYY-MM-DD format
-    const today = new Date().toISOString().split("T")[0];
-    // Combine default time with current date to match the 'datetime-local' format
-    return `${today}T${defaultTime}`;
-  }
 
   return (
     <div className="App">

@@ -16,16 +16,7 @@ app.use(cors());
 // DB config
 dbConnect();
 
-const reminderSchema = new mongoose.Schema({
-  reminderMsg: String,
-  remindAt: String,
-  isReminded: Boolean,
-});
-
-const Reminder = new mongoose.model("Reminder", reminderSchema);
-
 //API routes
-
 app.get("/getAllReminders", (req, res) => {});
 
 app.post("/addReminder", (req, res) => {});
@@ -36,4 +27,10 @@ app.get("/", (req, res) => {
   res.send("All set done");
 });
 
-app.listen(9000, () => console.log("server is ready"));
+// Port
+const PORT = process.env.PORT || 8080;
+
+// Run Listen
+app.listen(PORT, () => {
+  console.log(`Server is running on ${process.env.DEV_MODE} at PORT ${PORT}`);
+});

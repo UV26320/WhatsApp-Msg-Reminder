@@ -1,13 +1,27 @@
 import "./App.css";
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import DateTimePicker from "react-datetime-picker";
+import DataPicker from "./DataPicker";
 
 function App() {
   const [reminderMsg, setReminderMsg] = useState("");
-  const [remindAt, setRemindAt] = useState("");
+  const [reminderList, setReminderList] = useState([]);
+
+  useEffect(() => {
+    axios
+      .get("http://localhost:9000/getAllReminder")
+      .then((res) => {
+        setReminderList(res.data);
+      })
+      .catch((error) => {
+        // Handle error, log it, or set a default value for reminderList
+        console.error("Error fetching reminders:", error);
+      });
+  }, []);
 
   const addReminder = () => {};
+
+  const deleteReminder = () => {};
 
   return (
     <div className="App">
@@ -18,18 +32,9 @@ function App() {
             type="text"
             placeholder="Reminder Text here...."
             value={reminderMsg}
-            onChange={(e) => setReminderMsg}
+            onChange={(e) => setReminderMsg(e.target.value)}
           />
-          <DateTimePicker 
-            value={remindAt}
-            onChange={setRemindAt}
-            minDate={new Date()}
-            minutePlaceholder="mm"
-            hourPlaceholder="hh"
-            dayPlaceholder="DD"
-            monthPlaceholder="MM"
-            yearPlaceholder="YYYY"
-          />
+          <DataPicker></DataPicker>
           <div className="button" onClick={addReminder}>
             Add Reminder
           </div>

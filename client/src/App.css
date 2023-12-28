@@ -57,13 +57,9 @@
   font-size: 1rem;
 }
 
-.react-datetime-picker{
-  width: 100% !important;
-}
-
-/* .react-datetime-picker__wrapper{
+.react-datetime-picker__wrapper{
   width:100% !important; ;
-} */
+}
 
 .homepage_body {
   width: 100%;

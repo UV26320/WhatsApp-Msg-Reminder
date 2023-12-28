@@ -17,14 +17,44 @@ app.use(cors());
 dbConnect();
 
 //API routes
-app.get("/getAllReminders", (req, res) => {});
+app.get("/getAllReminders", async (req, res) => {
+  try {
+    const reminderList = await Reminder.find({});
+    res.send(reminderList);
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Internal Server Error");
+  }
+});
 
-app.post("/addReminder", (req, res) => {});
+app.post("/addReminder", async (req, res) => {
+  try {
+    const { reminderMsg, remindAt } = req.body;
+    const reminder = new Reminder({
+      reminderMsg,
+      remindAt,
+      isReminded: false,
+    });
 
-app.post("/deleteReminder", (req, res) => {});
+    await reminder.save();
+    const reminderList = await Reminder.find({});
+    res.send(reminderList);
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Internal Server Error");
+  }
+});
 
-app.get("/", (req, res) => {
-  res.send("All set done");
+app.post("/deleteReminder", async (req, res) => {
+  try {
+    const { id } = req.body;
+    await Reminder.deleteOne({ _id: id });
+    const reminderList = await Reminder.find({});
+    res.send(reminderList);
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Internal Server Error");
+  }
 });
 
 // Port

@@ -1,21 +1,20 @@
-require('dotenv').config()
-const express = require('express')
-const mongoose = require('mongoose')
-const cors = require('cors')
+import express from "express";
+import path from "path";
+import dotenv from "dotenv";
+import cors from "cors";
+
+// Configure ENV
+dotenv.config();
+
 
 //App config
-
 const app = express();
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 app.use(cors())
 
 // DB config
-
-mongoose.connect('mongodb://127.0.0.1:27017/reminderAppDB' , { 
-    useNewUrlParser: true ,
-    useUnifiedTopology: true
-}, () => console.log('db connection established'))
+dbConnect();
 
 const reminderSchema = new mongoose.Schema({
     

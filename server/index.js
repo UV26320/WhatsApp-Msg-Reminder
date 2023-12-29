@@ -19,6 +19,22 @@ app.use(cors());
 // DB config
 dbConnect();
 
+// Create a new reminder and save it to the database
+const newReminder = new Reminder({
+  reminderMsg: "Don't forget!",
+  remindAt: new Date(),
+  isReminded: false
+});
+
+newReminder.save()
+  .then(savedReminder => {
+    console.log('Reminder saved:', savedReminder);
+  })
+  .catch(error => {
+    console.error('Error saving reminder:', error.message);
+  });
+
+
 //API routes
 app.get("/getAllReminders", async (req, res) => {
   try {

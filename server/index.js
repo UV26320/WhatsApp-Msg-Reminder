@@ -3,6 +3,9 @@ import path from "path";
 import dotenv from "dotenv";
 import cors from "cors";
 import dbConnect from "./config/dbconnection.js";
+import reminderModel from "./Module/reminderModel.js";
+import Reminder from "./Module/reminderModel.js";
+
 
 // Configure ENV
 dotenv.config();
@@ -64,3 +67,4 @@ const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => {
   console.log(`Server is running on ${process.env.DEV_MODE} at PORT ${PORT}`);
 });
+

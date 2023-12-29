@@ -26,7 +26,17 @@ function App() {
       });
   }, []);
 
-  const addReminder = () => {};
+  const addReminder = async () => {
+    try {
+      const response = await axios.post("http://localhost:9000/addReminder", { reminderMsg, remindAt });
+      setReminderList(response.data);
+      setReminderMsg("");
+      setRemindAt("");
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  };
+  
 
   const deleteReminder = () => {};
 
@@ -55,6 +65,20 @@ function App() {
             Add Reminder
           </div>
         </div>
+        
+        <div className="homepage_body">
+          {
+            reminderList.map( reminder => (
+              <div className="reminder_card" key={reminder._id}>
+                <h2>{reminder.reminderMsg}</h2>
+                <h3>Remind Me at:</h3>
+                <p>{String(new Date(reminder.remindAt.toLocaleString(undefined, {timezone:"Asia/Kolkata"})))}</p>
+                <div className="button" onClick={() => deleteReminder(reminder._id)}>Delete</div>
+              </div>
+            ))
+          }
+        </div>
+
       </div>
     </div>
   );

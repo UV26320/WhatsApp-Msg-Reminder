@@ -27,16 +27,26 @@ function App() {
   }, []);
 
   const addReminder = async () => {
+    if (!reminderMsg || !remindAt) {
+      alert("Please fill in both fields");
+      return;
+    }
+
     try {
-      const response = await axios.post("http://localhost:9000/addReminder", { reminderMsg, remindAt });
+      const response = await axios.post("http://localhost:9000/addReminder", {
+        reminderMsg,
+        remindAt,
+      });
       setReminderList(response.data);
       setReminderMsg("");
       setRemindAt("");
+      alert("Your Data has been added");
     } catch (error) {
       console.error("Error:", error);
+      // You might want to set an error state to display a user-friendly error message
+      // setErrorState('Failed to add reminder. Please try again.');
     }
   };
-  
 
   const deleteReminder = () => {};
 
@@ -65,20 +75,30 @@ function App() {
             Add Reminder
           </div>
         </div>
-        
-        <div className="homepage_body">
-          {
-            reminderList.map( reminder => (
-              <div className="reminder_card" key={reminder._id}>
-                <h2>{reminder.reminderMsg}</h2>
-                <h3>Remind Me at:</h3>
-                <p>{String(new Date(reminder.remindAt.toLocaleString(undefined, {timezone:"Asia/Kolkata"})))}</p>
-                <div className="button" onClick={() => deleteReminder(reminder._id)}>Delete</div>
-              </div>
-            ))
-          }
-        </div>
 
+        <div className="homepage_body">
+          {reminderList.map((reminder) => (
+            <div className="reminder_card" key={reminder._id}>
+              <h2>{reminder.reminderMsg}</h2>
+              <h3>Remind Me at:</h3>
+              <p>
+                {String(
+                  new Date(
+                    reminder.remindAt.toLocaleString(undefined, {
+                      timezone: "Asia/Kolkata",
+                    })
+                  )
+                )}
+              </p>
+              <div
+                className="button"
+                onClick={() => deleteReminder(reminder._id)}
+              >
+                Delete
+              </div>
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );

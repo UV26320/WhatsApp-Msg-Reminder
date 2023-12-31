@@ -3,10 +3,10 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 
 function App() {
+
   const getDefaultDateTime = () => {
     const defaultTime = "12:00";
     const today = new Date().toISOString().split("T")[0];
-    // Combine default time with current date to match the 'datetime-local' format
     return `${today}T ${defaultTime}`;
   };
 
@@ -18,10 +18,10 @@ function App() {
     axios
       .get("http://localhost:9000/getAllReminder")
       .then((res) => {
+        console.log(res.data)
         setReminderList(res.data);
       })
       .catch((error) => {
-        // Handle error, log it, or set a default value for reminderList
         console.error("Error fetching reminders:", error);
       });
   }, []);
@@ -31,7 +31,6 @@ function App() {
       alert("Please fill in both fields");
       return;
     }
-
     try {
       const response = await axios.post("http://localhost:9000/addReminder", {
         reminderMsg,

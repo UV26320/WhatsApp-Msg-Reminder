@@ -20,19 +20,19 @@ app.use(cors());
 dbConnect();
 
 // Create a new reminder and save it to the database
-const newReminder = new Reminder({
-  reminderMsg: "Don't forget!",
-  remindAt: new Date(),
-  isReminded: false
-});
+// const newReminder = new Reminder({
+//   reminderMsg: "Don't forget!",
+//   remindAt: new Date(),
+//   isReminded: false
+// });
 
-newReminder.save()
-  .then(savedReminder => {
-    console.log('Reminder saved:', savedReminder);
-  })
-  .catch(error => {
-    console.error('Error saving reminder:', error.message);
-  });
+// newReminder.save()
+//   .then(savedReminder => {
+//     console.log('Reminder saved:', savedReminder);
+//   })
+//   .catch(error => {
+//     console.error('Error saving reminder:', error.message);
+//   });
 
 
 //API routes
@@ -77,7 +77,7 @@ app.post("/deleteReminder", async (req, res) => {
 });
 
 // Port
-const PORT = process.env.PORT || 8080;
+const PORT = process.env.PORT || 9000 ;
 
 // Run Listen
 app.listen(PORT, () => {

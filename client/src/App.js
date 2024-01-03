@@ -47,7 +47,24 @@ function App() {
     }
   };
 
-  const deleteReminder = () => {};
+  const deleteReminder = (id) => {
+    const confirmDelete = window.confirm("Are you sure you want to delete this reminder?");
+    
+    if (confirmDelete) {
+      axios.post("http://localhost:9000/deleteReminder", { id })
+        .then(res => setReminderList(res.data))
+        .catch(error => {
+          // Handle error if the deletion fails
+          console.error("Failed to delete reminder:", error);
+          // Optionally notify the user about the failure
+        });
+    } else {
+      // Optionally, inform the user that the reminder was not deleted
+      console.log("Reminder deletion cancelled by the user.");
+      // You might want to perform some action or notify the user here
+    }
+  }
+  
 
   return (
     <div className="App">
@@ -100,7 +117,7 @@ function App() {
             </div>
           ))}
         </div>
-        
+
       </div>
     </div>
   );

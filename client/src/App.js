@@ -51,7 +51,9 @@ function App() {
 
   return (
     <div className="App">
+
       <div className="homepage">
+
         <div className="homepage_Header">
           <h1>Remind Me 🙋🏻‍♂️</h1>
 
@@ -98,6 +100,7 @@ function App() {
             </div>
           ))}
         </div>
+        
       </div>
     </div>
   );

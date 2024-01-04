@@ -77,7 +77,7 @@ app.post("/deleteReminder", async (req, res) => {
 });
 
 // Port
-const PORT = process.env.PORT || 9000 ;
+const PORT = process.env.PORT || 8080 ;
 
 // Run Listen
 app.listen(PORT, () => {

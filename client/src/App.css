@@ -16,6 +16,7 @@
   align-items: center;
   background: linear-gradient(to bottom right, rgb(255, 253, 125), rgb(151, 250, 184), rgb(253, 209, 158));
   overflow: hidden;
+  position: relative;
 }
 
 .homepage_Header {
@@ -32,7 +33,7 @@
   background: white;
   position: relative;
   top: 0;
-  z-index: 1;
+  z-index: 10;
 }
 
 .homepage_Header > .button {
@@ -87,7 +88,7 @@
   padding: 1rem;
   max-width:350px;
   box-shadow: 0 2px 4px rgb(0 0 0 / 10%), 0 8px 16px rgb(0 0 0 / 10%);
-  position: relative;
+  position: relative;  
 }
 
 .reminder_card > h2 {

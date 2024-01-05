@@ -5,6 +5,7 @@ import cors from "cors";
 import dbConnect from "./config/dbconnection.js";
 import reminderModel from "./Module/reminderModel.js";
 import Reminder from "./Module/reminderModel.js";
+import cron from "node-cron";
 
 
 // Configure ENV
@@ -19,21 +20,38 @@ app.use(cors());
 // DB config
 dbConnect();
 
-// Create a new reminder and save it to the database
-// const newReminder = new Reminder({
-//   reminderMsg: "Don't forget!",
-//   remindAt: new Date(),
-//   isReminded: false
-// });
+//Whatsapp reminding functionality
 
-// newReminder.save()
-//   .then(savedReminder => {
-//     console.log('Reminder saved:', savedReminder);
-//   })
-//   .catch(error => {
-//     console.error('Error saving reminder:', error.message);
-//   });
+const sendReminders = async () => {
+  try {
+    const reminderList = await Reminder.find({
+      isReminded: false,
+      remindAt: { $lte: new Date() },
+    });
 
+    for (const reminder of reminderList) {
+      await Reminder.findByIdAndUpdate(reminder._id, { isReminded: true });
+
+      const accountSid = process.env.ACCOUNT_SID;
+      const authToken = process.env.AUTH_TOKEN;
+      const client = require("twilio")(accountSid, authToken);
+
+      await client.messages.create({
+        body: reminder.reminderMsg,
+        from: "whatsapp:+14155238886",
+        to: `whatsapp:${reminder.userPhoneNumber}`,
+      });
+    }
+  } catch (err) {
+    console.error("Error:", err);
+    // Handle errors as needed (retry, log, etc.)
+  }
+};
+
+// Schedule the reminder check every minute using node-cron
+cron.schedule("* * * * *", () => {
+  sendReminders();
+});
 
 //API routes
 app.get("/getAllReminders", async (req, res) => {
@@ -77,10 +95,9 @@ app.post("/deleteReminder", async (req, res) => {
 });
 
 // Port
-const PORT = process.env.PORT || 8080 ;
+const PORT = process.env.PORT || 9000;
 
 // Run Listen
 app.listen(PORT, () => {
   console.log(`Server is running on ${process.env.DEV_MODE} at PORT ${PORT}`);
 });
-

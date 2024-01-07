@@ -21,7 +21,6 @@ app.use(cors());
 dbConnect();
 
 //Whatsapp reminding functionality
-
 const sendReminders = async () => {
   try {
     const reminderList = await Reminder.find({
@@ -52,6 +51,8 @@ const sendReminders = async () => {
 cron.schedule("* * * * *", () => {
   sendReminders();
 });
+
+
 
 //API routes
 app.get("/getAllReminders", async (req, res) => {

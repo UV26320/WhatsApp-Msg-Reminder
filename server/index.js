@@ -53,7 +53,6 @@ cron.schedule("* * * * *", () => {
 });
 
 
-
 //API routes
 app.get("/getAllReminders", async (req, res) => {
   try {
